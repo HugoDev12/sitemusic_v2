@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publier mon annonce!{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css"  href="{{ asset('css/advertisementId.css') }}">
+{% endblock %}
+
+{% block body %}
+
+{# {{render(controller(
+  'App\\Controller\\NavController::getUserNotifications'
+))}} #}
+
+<div class="container-fluid" id="container-advertisementId">
+
+    
+  {% for label, messages in app.flashes(['success', 'danger', 'info', 'warning']) %}
+    {% for message in messages %}
+        <div class="flash-{{ label }} alert alert-{{ label }}" role="alert">
+            <p class="text-center" style="font-size: 2rem;">{{ message }}</p>
+        </div>
+    {% endfor %}
+  {% endfor %}
+
+{# FORM ADVERTISEMENT  #}
+  <div class="row" id="row-advertisementId">
+    <div class="row advertisementForm mb-5">
+        <div class="col-12 text-center">
+            <p id="title-addAdv" class="h1">PUBLIER MON ANNONCE</p>
+        </div>
+     </div>
+    {{ form_start(form) }}
+    <div class="row">
+      <div class="row advertisementForm d-flex justify-content-center my-md-3">
+          <div class="col-12 col-md-2 label-form-addAdv">
+            {{ form_label(form.title) }}
+          </div>
+          <div class="col-12 col-md-6">
+            {{ form_widget(form.title) }}
+          </div>
+      </div>
+      <div class="row advertisementForm d-flex justify-content-center my-md-3">
+          <div class="col-12 col-md-2 label-form-addAdv">
+            {{ form_label(form.lookingFor) }}
+          </div>
+          <div class="col-12 col-md-6">
+            {{ form_widget(form.lookingFor) }}
+          </div>
+      </div>
+      <div class="row advertisementForm d-flex justify-content-center my-md-3">
+          <div class="col-12 col-md-2 label-form-addAdv">
+            {{ form_label(form.city) }}
+          </div>
+          <div class="col-12 col-md-6 autoCompleteInput">
+            {{ form_widget(form.city) }}
+          </div>
+      </div>
+      <div class="row advertisementForm d-flex justify-content-center my-md-3">
+          <div class="col-12 text-center col-lg-2 text-lg-start label-form-addAdv">
+            {{ form_label(form.description) }}
+          </div>
+          <div class="col-12 col-md-10 col-lg-6">
+            {{ form_widget(form.description) }}
+            <div class="col"id="messageCount"></div>
+          </div>
+      </div>
+    </div>
+    {{ form_end(form) }}
+  </div>
+</div>
+
+{# SCRIPTS   #}
+{# <script type="text/javascript" src="{{ asset('datas/uniqueCities.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datas/musicians.js')}}"></script>
+<script src="{{ asset('scripts/dynamicResearch.js') }}"></script>
+<script src="{{ asset('scripts/textAreaLimit.js') }}"></script> #}
+{# <script type="text/javascript">
+  $('select').select2();
+</script> #}
+{% endblock %}

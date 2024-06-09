@@ -1,0 +1,1 @@
+Reprise du projet sitemusic mais sur la dernière version de symfony, avec la correction de multiples problèmes.

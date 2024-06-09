@@ -1,0 +1,51 @@
+h1{
+    font-size: 150px;
+    user-select: none;
+}
+h2{
+    font-size: 50px;
+    user-select: none;
+}
+p{
+    font-size: 30px;
+    user-select: none;
+}
+#container-error-404{
+    height: 100vh;
+    font-family: 'Amatic SC', cursive;
+    background-image: url(../images/error.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #F88F6F;
+    text-shadow: 1px -1px 1px black;
+}
+.row{
+    padding-top: 5vh;
+}
+.col-12{
+    padding-bottom: 20px;
+}
+/* ACCUEIL */
+#linkAccueil{
+    font-size: 40px;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 0;
+    text-shadow: none;
+}
+#linkAccueil::after {
+	position: absolute;
+	content: "";
+	width: 0%;
+	height: 2px;
+	background-color: black;
+	left: 50%;
+	bottom: 0px;
+	transition: all 0.4s ease-in-out;
+}
+
+#linkAccueil:hover:after {
+	width: 100%;
+	left: 0;
+}

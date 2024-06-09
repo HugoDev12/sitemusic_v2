@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'enregistrer!{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
+{% endblock  %}
+
+{% block navbar %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid" id="container-login">
+
+    <h1 class="login-register-homeLink">
+        <a href="{{path('app_home')}}" id="linkHome">Accueil</a>
+    </h1>
+    <div class="d-flex flex-column align-items-sm-center login-register-content">
+        <figure class="row d-flex justify-content-center">
+            <img src="{{asset('images/logo4-v3.png')}}" id="imgLogo" alt="logoWePlayMusic">
+        </figure>
+        <h2 class="text-center" class="col-12">www.WePlayMusic.fr</h2>
+
+
+    {{ form_start(registrationForm, {attr: {'class': 'my-5 my-md-0 mt-md-5 mb-md-2 mt-lg-4'}}) }}
+    
+        {{ form_row(registrationForm.email, {label: "Email"})}}
+        {{ form_row(registrationForm.plainPassword, {label: "Mot de passe"})}}
+
+        <div id="agreeTerms">
+            {{ form_row(registrationForm.agreeTerms, {label: "J'accepte les termes"}) }}
+        </div>
+        
+        <div class="row d-flex justify-content-center mb-2">
+            <button id="btnLogin" type="submit">S'enregistrer</button>
+   
+
+            {# <h3 class="text-center mt-2 noSelect">ou</h3>
+            <a href="{{ path('connect_google') }}" class="text-center" id="linkGoogle">S'enregister avec Google<img src="{{asset('images/google-logo.png')}}" alt="logoGoogle" id="imgGoogle" class="ms-2"></img></a> #}
+        </div>
+        <div class="d-flex mt-3">
+            <h3 class="noSelect w-50 text-end">Déjà un compte ? 👉</h3>
+            <h3 class="w-50"><a href="{{path('app_login')}}" class="ps-3" id="linkRegister">Se connecter</a></h3>
+        </div>
+    {{ form_end(registrationForm) }}
+    </div>
+
+</div>
+{% endblock %}
+{% block footer %}{% endblock  %}

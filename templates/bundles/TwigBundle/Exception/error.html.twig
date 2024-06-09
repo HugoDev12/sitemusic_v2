@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/error.css') }}">
+
+<div class="container-fluid" id="container-error-404">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <p class="text-center h1">OUPS!</p>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <p class="h2">Il y a eu une erreur.</p>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <a href="{{ path('app_home') }}" id="linkAccueil">Retour accueil</a>.
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les annonces{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css"  href="{{ asset('css/advertisement.css') }}">
+{% endblock stylesheets %}
+
+
+
+{% block body %}
+
+{% for label, messages in app.flashes(['success', 'danger', 'info', 'warning']) %}
+    {% for message in messages %}
+        <div class="flash-{{ label }} alert alert-{{ label }}" role="alert" style="z-index: 9999;">
+            <p class="text-center" style="font-size: 2rem;">{{ message }}</p>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<div class="container-fluid d-flex flex-column flex-xl-row justify-content-center pb-5" id="container-advertisement">
+    
+    
+    <div id="low-screen-content">
+        <aside class="row d-flex justify-content-center my-3">
+            <a class="col-11 text-center" href="{{path('advertisement_add')}}" id="btnAdvertisement">Publier mon Annonce</a>
+        </aside>
+        <section class="row d-flex justify-content-center my-2">
+            <h1 class="text-center col-12">
+                <button id="btnSearch" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <img class='text-center' src="{{ asset('images/fav-loupe.png') }}">
+                </button>
+            </h1>
+            <div class="collapse col-12 col-md-8" id="collapseExample">
+                <div class="card card-body" id="formAdvSearch">
+                    {{form_start(form, {'attr' : {'class' : 'formAdvSearch'}})}}
+                    {{form_row(form.isAlone, {'label': false})}}
+                    {{form_row(form.city)}}
+                    {{form_row(form.pseudo)}}
+                    {{form_row(form.lookingFor)}}
+                    {{form_row(form.save, {'label': "Rechercher"})}}
+                    {{form_end(form)}}
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    {# CARDS ADVERTISEMENTS #}
+    <article class="mt-3 d-flex flex-column align-items-center align-items-xl-start col-xl-7 mt-xl-5 pb-5" id="rightSide">
+        {% if advertisements is empty %}
+        <div class="row notFound col-12 col-md-10 d-flex align-items-center">
+            <p class="text-center">Aucune annonce trouvée!</p>
+        </div>
+        {% else %}
+            {% for data in advertisements %}
+                {% if data.user.isAlone == 1 %}
+                    <div class="row col-12 col-md-10 cardAdvertisement solo mb-5 mb-xl-3">
+                        <a href="{{ path('advertisement_info', {id:data.id})}}">
+                            <div class="row cardTop soloCard">
+                {% else %}
+                    <div class="row col-12 col-md-10 cardAdvertisement group mb-5 mb-xl-3">
+                        <a href="{{ path('advertisement_info', {id:data.id})}}">
+                            <div class="row cardTop groupCard">
+                {% endif %}
+                                <div class="col-6 col-lg-3 d-flex align-items-center">
+                                    <p class="adv-content">{{data.user.pseudo}}</p>
+                                </div>
+                                <div class="col-6 col-lg-5">
+                                    <p class="adv-content text-end text-xl-center">{{data.city}}</p>
+                                </div>
+                                <div class="d-none d-lg-inline col-lg-4">
+                                    <p class="adv-content text-end">{{data.date|date("d/m/Y H:i:s")}}</p>
+                                </div>
+                            </div>
+                            <div class="row cardBody">
+                                <div class="col-12">
+                                    <p class="h2 titleAdv">
+                                    {% if data.user.getAvatar() %}
+                                        <img class="cover" src="{{ asset( 'images_users/'~data.user.avatar~'' ) }}" alt="image choisie par un utilisateur">
+                                    {% else %} 
+                                        <img class='cover' src="{{ asset('images/logo4-wpm.png') }}" alt="image représentative d'un utilisateur">
+                                    {% endif %}
+                                    {{data.title}}</p>
+                                    {% if data.user.isAlone == 1 %}
+                                    <p class="isAlone">Musicien</p>
+                                    {% else %}
+                                    <p class="isAlone">Groupe</p>
+                                    {% endif %}
+                                </div>
+                            </div>  
+                        </a>   
+                    </div> 
+            {% endfor %}
+        {% endif %}
+    </article>
+</div>
+
+{# {% block javascripts %}{{ parent() }}{% endblock %}
+<script type="text/javascript" src="{{ asset('scripts/advertisementResponsive.js') }}"></script>
+<script type="text/javascript" src="{{ asset('datas/uniqueCities.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datas/musicians.js')}}"></script>
+<script src="{{ asset('scripts/dynamicResearch.js') }}"></script>   #}
+{% endblock %}

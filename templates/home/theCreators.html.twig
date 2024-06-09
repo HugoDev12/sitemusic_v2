@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block stylesheets %} 
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/creators.css') }}">
+{% endblock stylesheets %}
+
+{% block body %}
+{# {{render(controller(
+    'App\\Controller\\NavController::getUserNotifications'
+))}} #}
+ 
+<div class="container-fluid" id="container-creators">
+
+    <div class="row rowCreator" id="topRow">
+        <div class="col-md-6 text-center  "><img class='img-fluid avatar' src="{{ asset('images/logo-hugo.png') }}" alt="photo d'Hugo"></div>
+        <div class="col-md-6" id="topText">
+            <h1 class="text-center text-underline user-select-none">Hugo</h1>
+            <p class="text-justify user-select-none">Sosie non-officiel de Bradley COOPER. Quand il ne tourne pas des films à Hollywood, il écrit du code. Ses passes-temps : le piano, les JDR et de temps en temps boire une bonne bière!</p>
+            <p class="text-center"><a href="https://www.linkedin.com/in/hugo-occelli-b6085721b/" target="_blank">👉 Hugo Linkedin</a></p>
+        </div>
+    </div>
+
+    <div class="row rowCreator " id="bottomRow">
+        <div class="col-md-6" id="bottomText">
+            <h1 class="text-center text-underline user-select-none">Paul</h1>
+            <p class="text-justify user-select-none">75% Normand et 25% Italien. Passionné de nouvelles technologies, de cosmologie et de MAO. Un jour il voyagera dans l'espace ! En attendant, il fait des sites internet et sur son temps-libre profite de la mer.</p>
+            <p class="text-center"><a href="https://www.linkedin.com/in/paul-morea/" target="_blank">👉 Paul Linkedin</a></p>
+        </div>
+        <div class="col-md-6 text-center" id="bottomImg"><img class='img-fluid avatar' src="{{ asset('images/logo-paul.png') }}" alt="photo de Paul"></div>
+    </div>
+
+</div>
+
+{% endblock %}

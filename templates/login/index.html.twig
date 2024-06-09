@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire!{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+
+{% block body %}
+
+<div class="container-fluid" id="container-login">
+
+    <h1 class="login-register-homeLink">
+        <a href="{{path('app_home')}}" id="linkHome">Accueil</a>
+    </h1>
+    <div class="d-flex flex-column align-items-sm-center login-register-content">
+        <figure class="row d-flex justify-content-center">
+            <img src="{{asset('images/logo4-v3.png')}}" id="imgLogo" alt="logoWePlayMusic">
+        </figure>
+        <h2 class="text-center" class="col-12">www.WePlayMusic.fr</h2>
+
+    {# FORMULAIRE #}
+        <form action="{{ path('app_login') }}" method="post" class="mt-5 mb-md-2 mt-lg-4">
+                {% if error %}
+                <div class="row pb-2">
+                    <h2 id="errorAdvertisement"><img src="{{asset('images/fav-warning.png')}}" id="favWarning" alt="favIconWarning"></img>{{ error.messageKey|trans(error.messageData, 'security') }}</h2>
+                </div>
+                {% endif %}
+
+                {% if app.request.headers.get('referer') ends with '/advertisement'%}
+                <div class="row pb-2">
+                    <h2 id="errorAdvertisement"><img src="{{asset('images/fav-warning.png')}}" id="favWarning" alt="favIconWarning"></img>Vous devez être connecté pour publier une annonce !</h2>
+                </div>
+                {% endif %}
+            <div class="row ps-2 pb-2 my-3 my-md-3 my-xl-2">
+                <label for="email">Email</label>
+                <input class="col-10 col-md-11" type="text" id="email" name="email" value="{{ last_email }}"/>
+            </div>
+            <div class="row ps-2 pb-2 my-3 my-md-3 my-xl-2">
+                <label for="password">Mot de passe</label>
+                <input class="col-10 col-md-11" type="password" id="password" name="password"/>
+            </div>
+            {# If you want to control the URL the user is redirected to on success
+            <input type="hidden" name="_target_path" value="/account"/> #}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="row d-flex justify-content-center mb-2">
+                <button id="btnLogin" type="submit">Se connecter</button>
+                {# <h3 class="text-center noSelect mt-3">ou</h3>
+                <a href="{{ path('connect_google') }}" class="text-center" id="linkGoogle">Se connecter avec Google
+                    <img src="{{asset('images/google-logo.png')}}" alt="logoGoogle" id="imgGoogle" class="ms-2"></img>
+                </a> #}
+            </div>
+
+        </form>
+
+        <div class="row d-flex justify-content-center my-3 mt-xxl-3" id="linkToRegister">
+            <div class="col-12 d-flex justify-content-center">
+                <h3 class="noSelect">Pas de compte? 👉</h3>
+                <h3><a href="{{path('app_register')}}" class="ps-3" id="linkRegister">  Enregistrez-vous ici</a></h3>
+            </div>
+        </div>
+    </div>
+</div>
+     
+{% endblock %}
+
+{% block footer %}{% endblock  %}

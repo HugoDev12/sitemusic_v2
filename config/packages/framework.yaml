@@ -1,0 +1,30 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%env(APP_SECRET)%'
+    #csrf_protection: true
+
+    # Note that the session will be started ONLY if you read or write from it.
+    # session: true
+    # modifié en dessous
+    session:
+        # ID of the service used for session storage
+        # NULL means that Symfony uses PHP default session mechanism
+        handler_id: null
+        # improves the security of the cookies used for sessions
+        cookie_secure: auto
+        cookie_samesite: lax
+        storage_factory_id: session.storage.factory.native
+        # handler_id: 'session.handler.native_file'
+        # save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+
+
+    # modifié au dessus
+
+    #esi: true
+    #fragments: true
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file

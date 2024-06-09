@@ -1,0 +1,75 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" id="blockNav">
+    <div class="container-fluid" id="navContent">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="burgerBtn">
+        <div id="nav-icon1">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav d-flex align-items-center">
+          <li class="nav-item mx-lg-5">
+            <a class="nav-link annoncesLink active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+          </li>
+          <li class="nav-item mx-lg-5">
+            <a class="nav-link annoncesLink" href="{{ path('app_advertisement') }}" id="annoncesLink">Annonces</a>
+          </li>
+          {% if is_granted('ROLE_USER') %}
+            <li class="nav-item dropdown mx-lg-5">
+              <a class="nav-link d-flex justify-content-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{asset('images/fav-logo-profile1.png')}}" alt="icône du profil"></img>
+              </a>
+              <ul class="dropdown-menu userProfileDropDown">
+                <li><a class="dropdown-item userProfile" href="{{ path('app_user_profile', {id:app.user.id}) }}">Mon profil</a></li>
+                <li><a class="dropdown-item userProfile logout" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+              </ul>
+            </li>
+            {% if countUnreadMsg is defined %}  
+              {% if countUnreadMsg is same as (0) %}
+              <li class="nav-item mx-lg-5">
+                 <a class="nav-link " href="{{path('app_mailbox')}}" id="letterHover">
+                  <p class="text-center" id="textHover">Vous avez {{countUnreadMsg}} message non lu !</p>
+                  <img src="{{asset('images/fav-letter-open.png')}}" alt="icône messagerie"></img>
+                </a>
+              </li>
+              {% else %}
+              <li class="nav-item position-relative mb-3 mb-lg-0 mx-lg-5">
+                <a class="nav-link" href="{{path('app_mailbox')}}" id="letterHover">
+                  <p class="text-center" id="textHover">Vous avez {{countUnreadMsg}} messages non lus !</p>
+                  <img src="{{asset('images/fav-letter.png')}}" alt="icône messagerie"></img>
+                  <span class="position-absolute translate-middle badge rounded-pill bg-danger">
+                    {{countUnreadMsg}}
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                </a>
+              </li>
+              {% endif %}
+            {% endif %}
+
+          {% else %}
+            <li class="nav-item mx-lg-5">
+              <a class="nav-link annoncesLink" href="{{ path('app_register') }}">S'inscrire</a>
+            </li>
+            <li class="nav-item mx-lg-5">
+              <a class="nav-link annoncesLink" href="{{ path('app_login') }}">Se connecter</a>
+            </li>
+          {% endif %}
+  
+          {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: 2rem;" href="{{ path('app_admin') }}">Admin</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+{# LOGO  #}
+      <a class="navbar-brand" href="{{ path('app_home') }}">
+        <img src="{{asset('images/logo4-wpm.png')}}" alt="favicon" id="logoNav">
+      </a>
+  </div>
+</nav>
+
+

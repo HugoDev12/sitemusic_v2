@@ -1,0 +1,209 @@
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+h1{
+    user-select: none;
+}
+#container-creators{
+    padding-top: 10vh;
+}
+#img-home{
+    height: 100%;
+    width: 100%;
+    max-width: 800px;
+}
+
+#logo{
+    position: absolute;
+    right: 2rem;
+    top: 1rem;
+    z-index: 1000;
+    font-size: 2rem;
+}
+
+#logo>img{
+    width: 1.5em;
+}
+
+#container-home{
+    padding-top: 10vh;
+    font-family: 'Amatic SC', cursive;
+}
+#homeHeader>h1{
+    font-size: 3rem;
+}
+#flagFranceHome{
+    width: 20px;
+}
+#spanNouveau{
+    text-shadow: 1px 1px 1px rgb(255, 255, 113);
+}
+#textHomeRow{
+    margin: auto;
+    width: 90%;
+    max-width: 1124px;
+    border: 2px solid black;
+    box-shadow: 
+        10px -10px 0 -3px #ffff71,
+        10px -10px,
+        20px -20px 0 -3px #F88F6F,
+        20px -20px;
+    user-select: none;
+    line-height: 1.25rem;
+}
+#textHome{
+    text-align: justify;    
+    font-size: 1rem;
+    max-height: 50vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    display: -webkit-box;
+   -webkit-line-clamp: 10; 
+   -webkit-box-orient: vertical;
+}
+/* BUTTON */
+
+#btnAnnonces{
+    position: relative;
+    padding: 10px 25px;
+    background-color: #F88F6F;
+    border: 2px solid black;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 1.75rem;
+    letter-spacing: .1rem;
+    outline: none !important;
+    cursor: pointer;
+    z-index: 1;
+    text-align: center;
+}
+#btnAnnonces:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #ffff71;
+    transition: all 0.3s ease; 
+}
+#btnAnnonces:hover:after {
+    top: auto;
+    bottom: 0;
+    height: 100%; 
+}
+#btnAnnonces>a{
+    font-size: 2.5rem;
+}
+
+/************* MAP **************/
+#sectionMap{
+    margin-top: 2rem;
+}
+#map {
+    width: 90%;
+    max-width: 500px;
+}
+
+#map path {
+    fill: rgb(255, 255, 113);
+    stroke: black;
+    stroke-width: 3;
+    transition: fill 0.2s, stroke 0.3s;
+}
+
+#map path:hover {
+    fill: #F88F6F;
+    stroke: black;
+    stroke-width: 3;
+}
+
+#map .separator {
+    stroke: #ccc;
+    fill: none;
+    stroke-width: 1.5;
+}
+
+#map .separator:hover {
+    stroke: #ccc;
+    fill: none;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (min-width:650px){
+    #sectionMap{
+        height: auto;
+    }
+}
+
+@media screen and (min-width:768px){
+    #homeHeader>h1{
+        font-size: 4em;
+    }
+    #textHome{
+        font-size: 1.5rem;
+    }
+    #textHomeRow{
+        max-height: 400px;
+        line-height: 2rem;
+    }
+    #btnAnnonces{
+        border: 2px solid black;
+        font-size: 3em;
+    }
+}
+
+@media screen and (min-width:1024px){
+
+    #logo{
+        right: 1em;
+        top: 0.5em;
+        z-index: 1000;
+        font-size: 2em;
+    }
+    #logo>img{
+        width: 1em;
+    }
+    #homeHeader>h1{
+        font-size: 4rem;
+    }
+
+    #btnAnnonces{
+        border: 3px solid black;
+        font-size: xx-large;
+       
+    }
+    #sectionMap{
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width:1200px){
+
+    #homeHeader>h1{
+        font-size: 5rem;
+    }
+    #map {
+        width: 492px;
+        height: 543px;
+    }
+    #flagFranceHome{
+        width: 35px;
+    }
+}
+
+@media screen and (min-width: 1324px) {
+    #homeHeader>h1{
+        font-size: 6rem;
+    }
+    #textHomeRow {
+        margin: 0 0 0 10%;
+        line-height: 2.5rem;
+    }
+}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma messagerie{% endblock %}
+
+{% block stylesheets %}
+  {{parent()}}
+  <link rel="stylesheet" type="text/css"  href="{{ asset('css/mailbox.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+{# {{render(controller(
+    'App\\Controller\\NavController::getUserNotifications'
+))}} #}
+
+  <section class="container-fluid  " id="container-mailbox">
+    <div class="col text-center pt-5">
+        <h1>BOITE DE RÉCEPTION</h1>
+    </div>
+    <div class="row d-flex justify-content-center" id="mailbox">
+    {% if messages|length < 1 %}
+      <p class="text-center pt-5 h1" id="noMessageText">Vous n'avez pas reçu de message! 📄</p>
+    {% endif %} 
+      {% for message in messages %}
+      <div class="row rowMailbox"> 
+        <a href="{{path('app_readMessage', {id: message.id})}}" class="d-flex justify-content-center">
+            <div class="col-6 col-md-4 d-flex align-items-center divMailbox">
+            {% if message.sender.getAvatar() %}
+              <img class="cover" src="{{ asset( 'images_users/'~message.sender.avatar~'' ) }}" alt="image de l'expéditeur">
+            {% else %} 
+              <img class='cover' src="{{ asset('images/logo4-wpm.png') }}" alt="image représentative de l'expéditeur">
+            {% endif %}
+              @{{message.sender.pseudo}}
+            </div>
+          {% if message.isRead == false %}
+            <div class="col-2 col-md-4 d-flex justify-content-center align-items-center divMailbox unread">non lu</div>
+          {% else %}
+            <div class="col-2 col-md-4 d-flex justify-content-center align-items-center divMailbox">lu</div>
+          {% endif %}
+            <div class="col-4 d-flex justify-content-end align-items-center divMailbox">{{ message.createdAt|date('d-m-Y H:i:s')}}</div> 
+        </a>   
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

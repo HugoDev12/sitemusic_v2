@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/advertisementId.css') }}">
+{% endblock %}
+
+{% block body %}
+
+{# 
+{{render(controller(
+'App\\Controller\\NavController::getUserNotifications'
+))}} #}
+
+{% for label, messages in app.flashes(['success', 'danger', 'info', 'warning']) %}
+  {% for message in messages %}
+      <div class="flash-{{ label }} alert alert-{{ label }}" role="alert">
+          <p class="text-center" style="font-size: 2rem;">{{ message }}</p>
+      </div>
+  {% endfor %}
+{% endfor %}
+
+
+<div class="container-fluid" id="container-advertisementId">
+  {% if app.user.id is defined and app.user.id == advertisement.user.id %}
+
+  {# FORM 1 #}
+  <section class="row" id="row-advertisementId">
+    <div class="row advertisementForm">
+      <div class="col-12 text-center">
+        <h1>MON ANNONCE</h1>
+      </div>
+  </div>
+  {{ form_start(advForm) }}
+  <div class="row">
+    <div class="row advertisementForm my-2">
+      <div class="col-md-2">
+        {{ form_label(advForm.title) }}
+      </div>
+      <div class="col-md-6">
+        {{ form_widget(advForm.title) }}
+      </div>
+    </div>
+    <div class="row advertisementForm my-2">
+      <div class="col-md-2">
+        {{ form_label(advForm.lookingFor) }}
+      </div>
+      <div class="col-md-6">
+        {{ form_widget(advForm.lookingFor) }}
+      </div>
+    </div>
+    <div class="row advertisementForm my-2">
+      <div class="col-md-2">
+        {{ form_label(advForm.city) }}
+      </div>
+      <div class="col-md-6 autoCompleteInput">
+        {{ form_widget(advForm.city) }}
+      </div>
+    </div>
+    <div class="row advertisementForm my-2">
+      <div class="col-md-2">
+        {{ form_label(advForm.description) }}
+      </div>
+      <div class="col-md-10">
+        {{ form_widget(advForm.description|raw) }}
+        <div class="col"id="messageCount"></div>
+      </div>
+    </div>
+  </div>
+  {{ form_end(advForm) }}
+</section>
+<div class="row d-flex justify-content-center mt-3" id="row-advertisementIdDelete">
+  <div class="col-6 text-center">
+    <a href="{{path('app_advDelete', {id:advertisement.id})}}" id="linkDelete">
+      <p class="h3">Supprimer mon annonce</p>
+    </a>
+  </div>
+</div>
+
+{# FORM 2 #}
+{% else %}
+<section class="row" id="row-advertisementId">
+  <div class="row">
+    <div class="col-6">
+      <div class="col-12">
+        <a href="{{path('app_user_visit_profile', {pseudo: advertisement.user.pseudo})}}">
+          {% if advertisement.user.getAvatar() %}
+          <img class="cover" src="{{ asset( 'images_users/'~advertisement.user.avatar~'' ) }}" alt="image choisie par un utilisateur">
+          {% else %}
+          <img class='cover' src="{{ asset('images/logo4-v3.png') }}" alt="image représentative d'un utilisateur">
+          {% endif %}
+
+          <p class="ps-3 h1">@{{advertisement.user.pseudo}}</p>
+        </a>
+      </div>
+    </div>
+    <div class="col-6 text-end pt-3">
+      <p class="h4">Annonce publiée le : {{advertisement.date|date("d/m/Y H:i:s")}}</p>
+    </div>
+  </div>
+  <div class="col-12 text-center pb-3">
+    <h1 id="title">{{advertisement.title}}</h1>
+  </div>
+  <div class="col-12 text-center">
+    <p class="h3"><span class="labelAdvertisement">Recherche :</span> {{advertisement.lookingFor}}</p>
+  </div>
+  <div class="col-12 text-center">
+    <p class="h3"><span class="labelAdvertisement">Ville :</span> {{advertisement.city}}</p>
+  </div>
+  <div class="col-12 text-center pb-3">
+    <p class="h3"><span class="labelAdvertisement">Je suis :</span>
+      {% if advertisement.user.isAlone == 1 %}
+        {% if advertisement.user.instrument is not empty %}
+          {{advertisement.user.instrument}}
+        {% else %} 
+          un musicien 
+       {% endif %}</h3>
+      {% else %} 
+      un groupe</h3>
+      {% endif %}
+    </div>
+  <hr>
+  <div class="col-12 pt-3" id="divDescription">
+    <p class="h4"><span class="labelAdvertisement" id="description">description :</span> {{advertisement.description|raw}}</p>
+  </div>
+</section>
+{# MESSAGERIE #}
+<div class="row" id="row-messagerieAdvertisement">
+  {% if is_granted('ROLE_USER') and advertisement.user.id != app.user.id %}
+  <form method="post" class="pt-3" id="formMessagerie">
+    <div class="col d-flex justify-content-center" id="divMessagerie">
+      <textarea class="form-control" placeholder="Répondre à cette annonce" id="textAreaMessagerie"
+        name="messageContent"></textarea>
+    </div>
+    <div class="col d-flex justify-content-center" id="divBtnMessagerie">
+      <button type="submit" class="" id="btnMessagerie">Envoyer mon message</button>
+    </div>
+  </form>
+</div>
+{% endif %}
+
+{% endif %}
+
+</div>
+
+{# SCRIPTS #}
+{# <script type="text/javascript" src="{{ asset('datas/uniqueCities.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datas/musicians.js')}}"></script>
+<script src="{{ asset('scripts/dynamicResearch.js') }}"></script>
+<script src="{{ asset('scripts/textAreaLimit.js') }}"></script> #}
+{% endblock %}

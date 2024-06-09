@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil utilisateur{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/profile.css') }}">
+{% endblock %}
+
+{% block body %}
+
+{# {{render(controller(
+    'App\\Controller\\NavController::getUserNotifications'
+))}} #}
+
+
+{% for label, messages in app.flashes(['success', 'danger', 'info', 'warning']) %}
+    {% for message in messages %}
+        <div class="flash-{{ label }} alert alert-{{ label }}" role="alert">
+            <p class="text-center" style="font-size: 2rem;">{{ message }}</p>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+    <div class="container-fluid" id="visitProfile">
+
+        <div>
+            {% if user.getAvatar() %}
+                    <figure class="d-flex justify-content-center"><img class="visitCover" src="{{ asset( 'images_users/'~user.avatar~'' ) }}" alt="image choisie par un utilisateur"></figure>
+                {% else %} 
+                    <figure class="d-flex justify-content-center"><img class='visitCover' src="{{ asset('images/logo4-wpm.png') }}" alt="image représentative d'un utilisateur"></figure>
+            {% endif %}
+        </div>
+        <div class="d-flex justify-content-start justify-content-md-center my-3">
+            <p class="col-md-6 text-md-end"><span class="labelVisitUser">Pseudo :</span></p>&ensp;<p class="col-md-6">{{user.pseudo}}</p>
+        </div>
+        {% if user.city is not null %}  
+            <div class="d-flex justify-content-start  my-3">
+                <p class="col-md-6 text-md-end"><span class="labelVisitUser">Ville :</span> </p class="col-md-6">&ensp;<p>{{user.city}}</p>
+            </div>
+        {% endif %}
+        {% if user.instrument is not null %}
+            <div class="d-flex justify-content-start my-3">
+                <p class="col-md-6 text-md-end"><span class="labelVisitUser">Instrument :</span> </p>&ensp;<p>{{user.instrument}}</p>  
+            </div>
+        {% endif %}
+        {% if user.styleMusic is not null %}
+        <div class="d-flex justify-content-start my-3">
+            <p class="col-md-6 text-md-end"><span class="labelVisitUser">Style :</span> </p>&ensp;<p>{{user.styleMusic}}</p>
+        </div>
+        {% endif %}
+        {% if user.level is not null %}            
+        <div class="d-flex justify-content-start my-3">
+            <p class="col-md-6 text-md-end"><span class="labelVisitUser">Niveau :</span> </p>&ensp;<p>{{user.level}}</p>
+        </div>
+        {% endif %}
+        {% if user.book is not null %}
+        <div class="d-flex justify-content-start my-3">
+            <p class="col-md-6 text-md-end"><span class="labelVisitUser">Book :</span> </p>&ensp;<p>{{user.book}}</p>
+        </div>
+        {% endif %}
+        {% if user.description is not null %}
+        <div class="d-flex justify-content-start my-3">
+            <p class="col-md-6 text-md-end"><span class="labelVisitUser">Description :</span> </p>&ensp;<p>{{user.description}}</p>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

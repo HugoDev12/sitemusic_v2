@@ -1,0 +1,54 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Messages{% endblock %}
+
+{% block body %}
+
+<div class="d-flex row" style="margin-top: 10rem;">
+
+    {% for label, messages in app.flashes(['success', 'danger', 'info', 'warning']) %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} alert alert-{{ label }}" role="alert">
+                <p class="text-center" style="font-size: 2rem;">{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <a href="{{path('app_admin')}}" class="text-center">Utilisateurs</a>
+    <a href="{{path('app_admin_advertisements')}}" class="text-center">Annonces</a>
+    <table class="display responsive nowrap cell-border dataTable">
+        <thead>
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Expéditeur</th>
+                <th class="text-center">Destinataire</th>
+                <th class="text-center">Contenu</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Lu/Non lu</th>
+                <th class="text-center">Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+        {% for message in messages %}
+                <td class="align-middle text-center">{{ message.getId() }}</td>
+                <td class="align-middle text-center">id : {{ message.getSender().id }}/ pseudo : {{message.getSender().pseudo}}</td>
+                <td class="align-middle text-center">id : {{ message.getRecipient().id }}/ pseudo : {{message.getRecipient().pseudo}}</td>
+                <td class="align-middle text-center">{{ message.getContent() }}</td>
+                <td class="align-middle text-center">{{ message.getCreatedAt()|format_datetime('full', 'none', locale='fr') }}</td>
+                {% if message.isRead() is same as(false) %}
+                    <td class="align-middle text-center">Non lu</td>
+                {% else %}
+                    <td class="align-middle text-center">Lu</td>
+                {% endif %}
+                <td class="align-middle text-center"><a href="{{path('app_admin_deleteMessage', {id: message.getId()})}}">Supprimer</a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

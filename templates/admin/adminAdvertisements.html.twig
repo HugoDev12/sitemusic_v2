@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Annonces{% endblock %}
+
+{% block body %}
+
+
+
+
+
+
+
+<div class="d-flex row" style="margin-top: 10rem;">
+
+    {% for label, messages in app.flashes(['success', 'danger', 'info', 'warning']) %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} alert alert-{{ label }}" role="alert">
+                <p class="text-center" style="font-size: 2rem;">{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <a href="{{path('app_admin_messages')}}" class="text-center">Messages</a>
+    <a href="{{path('app_admin')}}" class="text-center">Utilisateurs</a>
+    <table class="display responsive nowrap cell-border dataTable">
+        <thead>
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Propriétaire</th>
+                <th class="text-center">Titre</th>
+                <th class="text-center">Seul(e) ?</th>
+                <th class="text-center">Cherche</th>
+                <th class="text-center">Ville</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Statut</th>
+                <th class="text-center">Région</th>
+                <th class="text-center">Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+        {% for advertisement in advertisements %}
+                <td class="align-middle text-center">{{ advertisement.getId() }}</td>
+                <td class="align-middle text-center">id : {{ advertisement.getUser().id }}/ pseudo : {{ advertisement.getUser().pseudo }}</td>
+                <td class="align-middle text-center">{{ advertisement.getTitle()}}</td>
+                {% if advertisement.user.isAlone is same as(false) %}
+                    <td class="align-middle text-center">Oui</td>
+                {% else %}
+                    <td class="align-middle text-center">Non</td>
+                {% endif %}
+                <td class="align-middle text-center">{{ advertisement.getLookingFor() }}</td>
+                <td class="align-middle text-center">{{ advertisement.getCity() }}</td>
+                <td class="align-middle text-center">{{ advertisement.getDescription() }}</td>
+                <td class="align-middle text-center">{{ advertisement.getDate()|format_datetime('full', 'none', locale='fr') }}</td>
+                <td class="align-middle text-center">{{ advertisement.getStatus() }}</td>
+                <td class="align-middle text-center">{{ advertisement.getRegion() }}</td>
+                <td class="align-middle text-center"><a href="{{path('app_admin_deleteAdv', {id: advertisement.getId()})}}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,143 @@
+#container-mailbox{
+    padding-top: 10vh;
+    font-family: 'Amatic SC', cursive;
+}
+#mailbox{
+    margin-top: 30px;
+}
+.rowMailbox:hover{
+    background-color: #ffff71;
+}
+.divMailbox{
+    border-bottom: 1px solid black;
+    padding:  10px;
+    font-family: 'Bebas Neue', cursive;
+}
+#noMessageText{
+    opacity: 0.5;
+}
+.cover{
+    height: 80px;
+    /* padding: 0 10px; */
+}
+.unread{
+    color: #F88F6F!important;
+    text-shadow: 1px 1px 1px #000000;
+}
+/***** THREAD PAGE *****/
+#linkMailbox{
+    height: 90vh;
+    border-right: 1px solid black;
+}
+#linkMailboxText{
+    display: inline-block;
+    position: relative;
+    padding-bottom: 0;
+}
+#linkMailboxText::after {
+	position: absolute;
+	content: "";
+	width: 0%;
+	height: 2px;
+	background-color: black;
+	left: 50%;
+	bottom: 0px;
+	transition: all 0.4s ease-in-out;
+}
+#linkMailboxText:hover:after {
+	width: 100%;
+	left: 0;
+}
+#linkMailboxText:hover{
+    text-shadow: 1px 1px 1px rgb(255, 255, 113);
+}
+#rowMessage{
+    font-family: 'Bebas Neue', cursive;
+    font-size: x-large;
+    height: 50vh;
+}
+/* MESSAGERIE */
+#textAreaMessagerie{
+    width: 1000px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 0;
+    font-family: 'Bebas Neue', cursive!important;
+    font-size: x-large;
+}
+#textAreaMessagerie:focus{
+    -webkit-box-shadow: 0px 0px 4px 3px #F88F6F; 
+    box-shadow: 0px 0px 4px 3px #F88F6F;
+}
+::placeholder {
+    color: black!important;
+    text-shadow: 2px 2px 2px #ffff71;
+    opacity: 1;
+}
+:-ms-input-placeholder { 
+color: black!important;
+text-shadow: 2px 2px 2px #ffff71;
+opacity: 1;
+}
+::-ms-input-placeholder { 
+    color: black!important;
+    text-shadow: 2px 2px 2px #ffff71;
+    opacity: 1;
+}
+/* BUTTON */
+#divBtnMessagerie{
+    margin: 30px 0 50px 0;
+}
+#btnMessagerie{
+    width: 300px;
+    height: auto;
+    position: relative;
+    padding: 5px 5px; 
+    background-color: #F88F6F;
+    border: 3px solid black;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: xx-large;
+    letter-spacing: .1rem;
+    outline: none !important;
+    cursor: pointer;
+    z-index: 1;
+}
+#btnMessagerie:after{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #ffff71;
+    transition: all 0.3s ease; 
+}
+#btnMessagerie:hover:after{
+    top: auto;
+    bottom: 0;
+    height: 100%; 
+}
+/***** RESPONSIVE *****/
+@media screen and (min-width: 992px) { 
+    .rowMailbox{
+        width: 60%;
+        margin: 0 20%;
+    }
+
+}
+@media screen and (max-width: 768px) { 
+    .rowMailbox a{
+        font-size: small;
+    }
+    #rowMessage, #textAreaMessagerie, #btnMessagerie{
+        font-size: medium;
+    }
+    #textAreaMessagerie{
+        height: 100px;
+    }
+    .cover{
+        height: 50px;
+    }
+}

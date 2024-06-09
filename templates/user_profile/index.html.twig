@@ -1,0 +1,186 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil utilisateur{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/profile.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid" id="row-profile">
+
+        {% for label, messages in app.flashes(['success', 'danger', 'info', 'warning']) %}
+            {% for message in messages %}
+                <div class="flash-{{ label }} alert alert-{{ label }}" role="alert">
+                    <p class="text-center" style="font-size: 2rem;">{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% if userAdvertisements|length > 0 %}
+        <div class="dropdown d-flex justify-content-center my-3 advBtn">
+            <img id="favArrow" class="d-none" src="{{ asset('images/fav-fleche3.png') }}">
+            <button class="btn  userAdvBtn my-3"type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Mes Annonces
+            </button>
+            <ul class="dropdown-menu advs" aria-labelledby="dropdownMenuButton1">
+            {% for ad in userAdvertisements %}    
+                <li class="advLinks text-center"><a href="{{path('advertisement_info', {id: ad.id})}}">{{ad.title}}</a></li>
+            {% endfor %}
+            <li class="text-center addAdv"><a href="{{path("advertisement_add")}}">Publier&thinsp;<img src="{{asset("images/fav-plus.png")}}" alt="symbole plus pour illustrer le lien" id="favPlusImg"></a></li>
+            </ul>
+        </div>
+        {% else %}
+        <div class="dropdown d-flex justify-content-center my-3 advBtn">
+            <img id="favArrow" class="d-none" src="{{ asset('images/fav-fleche3.png') }}">
+            <button class="btn  userAdvBtn my-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Mes Annonces
+            </button>
+            <ul class="dropdown-menu advs" aria-labelledby="dropdownMenuButton1">
+                <li><p class="mt-2 px-2 h3 text-center">Aucune annonce</p></li>
+                <li class="text-center addAdv"><a href="{{path("advertisement_add")}}">Publier&thinsp;<img src="{{asset("images/fav-plus.png")}}" alt="symbole plus pour illustrer le lien" id="favPlusImg"></a></li>
+              </ul>
+        </div>
+        {% endif %}
+        <div class="row">
+
+            {{form_start(form)}}
+            {% if user.city is empty or user.styleMusic is empty or user.level is empty or user.description is empty or (user.isAlone == true and user.instrument is empty)%}
+                <div class="row p-2">
+                    <h2 class="ps-md-5" id="completeUrProfile">Un profil complété à plus de chance d'être remarqué!<img src="{{ asset('images/fav-clindoeil.png') }}" alt="FavIcon" class="ps-2" id="favEye"></h2>
+                </div>
+            {% endif %}
+            <div class="row gx-5">
+                <div class="col-md-4 col-xl-3 mt-xl-5 ps-xl-5">
+                    {% if user.getAvatar() %}
+                            <figure class="d-flex justify-content-center"><img class="cover" src="{{ asset( 'images_users/'~user.avatar~'' ) }}" alt="image choisie par un utilisateur"></figure>
+                        {% else %} 
+                            <figure class="d-flex justify-content-center mb-5"><img class='cover' src="{{ asset('images/logo4-wpm.png') }}" alt="image représentative d'un utilisateur"></figure>
+                    {% endif %}
+                    <div>
+                        {{ form_row(form.avatar) }}
+                    </div>
+                </div>
+                <div class="col-md-8 col-xl-5 mt-xl-5">
+                    <div>
+                        {% if user.pseudo is not null %}
+                            <div>
+                                {{ form_label(form.pseudo) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.pseudo, {'value': user.pseudo}) }}
+                            </div>
+                        {% else %}
+                            <div>{{form_row(form.pseudo)}}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if user.email is not null %}
+                            <div>
+                                {{ form_label(form.email) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.email, {'value': user.email}) }}
+                            </div>
+                        {% else %}
+                            <div>{{form_row(form.email)}}</div>
+                        {% endif %}
+                    </div>
+                    {# <div>
+                        {% if user.password is not null %}
+                            <div>
+                                {{ form_label(form.password) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.password, {'value': user.password}) }}
+                            </div>
+                        {% else %}
+                            <div>{{form_row(form.password)}}</div>
+                        {% endif %}
+                    </div> #}
+                    <div>
+                        {% if user.city is not null %}
+                            <div>
+                                {{ form_label(form.city) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.city, {'value': user.city}) }}
+                            </div>
+                        {% else %}
+                            <div>{{form_row(form.city)}}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row ms-1 col-xl-4 mt-xl-5 col-xxl-3">
+                    <div class="col-12 col-md-6 col-xl-12">
+                        {% if user.level is not null %}
+                            <div>
+                                {{ form_label(form.level) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.level, {'value': user.level}) }}
+                            </div>
+                        {% else %}
+                            <div>{{form_row(form.level)}}</div>
+                        {% endif %}
+                    </div>
+                    <div id="isAloneParent" class="col-12 col-md-6 col-xl-12 mb-3">
+                        <div>{{ form_label(form.isAlone) }}</div>
+                        <div>{{ form_widget(form.isAlone, {'data': user.isAlone}) }}</div>
+                    </div>
+                    <div id="instrument" class="col-12 col-md-6 col-xl-12">
+                        {% if user.instrument is not null %}
+                            <div>
+                                {{ form_label(form.instrument) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.instrument, {'value': user.instrument}) }}
+                            </div>
+                        {% else %}
+                            <div>{{form_row(form.instrument)}}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-12">
+                        {% if user.styleMusic is not null %}
+                            <div>
+                                {{ form_label(form.style_music) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.style_music, {'value': user.styleMusic}) }}
+                            </div>
+                        {% else %}
+                            <div>{{form_row(form.style_music)}}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row ms-1" id="userDescription">
+                    {% if user.description is not null %}
+                        <div>
+                            {{ form_label(form.description) }}
+                        </div>
+                        <div class="col-lg-8 mb-lg-5">
+                            {{ form_widget(form.description, {'value': user.description}) }}
+                            <div class="col"id="messageCount"></div>
+                        </div>
+                    {% else %}
+                        <div>
+                            {{ form_label(form.description) }}
+                        </div>
+                        <div class="col-lg-8 mb-lg-5">
+                            {{ form_widget(form.description, {'value': user.description}) }}
+                            <div class="col"id="messageCount"></div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="d-flex justify-content-end my-3 my-md-5 my-lg-0" id="btnSave">
+                    {{form_row(form.save)}}
+                </div>
+            </div>
+            {{form_end(form)}}
+        </div>
+    </div>
+
+{% block footer %}{% endblock  %}
+{% endblock %}

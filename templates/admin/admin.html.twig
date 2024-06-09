@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Utilisateurs{% endblock %}
+
+{% block body %}
+
+
+
+
+
+
+
+<div class="d-flex row" style="margin-top: 10rem;">
+    {% for label, messages in app.flashes(['success', 'danger', 'info', 'warning']) %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} alert alert-{{ label }}" role="alert">
+                <p class="text-center" style="font-size: 2rem;">{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <a href="{{path('app_admin_messages')}}" class="text-center">Messages</a>
+    <a href="{{path('app_admin_advertisements')}}" class="text-center">Annonces</a>
+    <table class="display responsive nowrap cell-border dataTable">
+        <thead>
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Role</th>
+                <th class="text-center">Pseudo</th>
+                <th class="text-center">Instrument</th>
+                <th class="text-center">Ville</th>
+                <th class="text-center">Style</th>
+                <th class="text-center">Liens</th>
+                <th class="text-center">Avatar</th>
+                <th class="text-center">Modifier</th>
+                <th class="text-center">Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+        {% for user in users %}
+                <td class="align-middle text-center">{{ user.getId() }}</td>
+                <td class="align-middle text-center">{{ user.getEmail() }}</td>
+                <td class="align-middle text-center">{{ user.getDate()|format_datetime('full', 'none', locale='fr') }}</td>
+                <td class="align-middle text-center">{{ user.getRoles()|join(', ') }}</td>
+                <td class="align-middle text-center">{{ user.getPseudo() }}</td>
+                <td class="align-middle text-center">{{ user.getInstrument() }}</td>
+                <td class="align-middle text-center">{{ user.getCity() }}</td>
+                <td class="align-middle text-center">{{ user.getStyleMusic() }}</td>
+                <td class="align-middle text-center">{{ user.getBook() }}</td>
+                <td class="align-middle text-center"><img src="{{asset('images_users/'~user.getAvatar()~'')}}" alt="img-utilisateur" style="height: 60px;"></td>
+                <td class="align-middle text-center"><a href="{{path('app_user_profile', {id: user.getId()})}}">Modifier</a></td>
+                <td class="align-middle text-center"><a href="{{path('app_user_delete_profile', {id: user.getId()})}}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

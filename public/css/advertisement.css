@@ -1,0 +1,233 @@
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: 'Amatic SC', cursive;
+}
+#container-advertisement{
+    padding-top: 12vh;
+    background-image: url("../images/bg-adv.png");
+    background-size: contain;
+}
+.adv-content{
+    font-size: 1rem;
+}
+.date-bot-card{
+    display: block;
+}
+.item{
+    font-size: 1.5rem;
+}
+#favArrow{
+    width: 80px;
+    position: absolute;
+    left: -45px;
+    top: -5px;
+    z-index: 999;
+}
+
+/* BUTTON */
+#btnAdvertisement, .submit-search{
+    position: relative;
+    padding: 10px 25px;
+    background-color: #F88F6F;
+    border: 2px solid black;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    max-width: 300px;
+    letter-spacing: .1rem;
+    outline: none !important;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.autocomplete-items{
+    top: 7vh;
+}
+.submit-search{
+    font-size: 1rem;
+    margin: auto;
+}
+#btnAdvertisement:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #ffff71;
+    transition: all 0.3s ease; 
+}
+#btnAdvertisement:hover:after {
+    top: auto;
+    bottom: 0;
+    height: 100%; 
+}
+#rowBtn{ 
+    position: fixed;
+    z-index: 9990;
+}
+#btnSearch{
+    position: relative;
+    padding: 10px 25px;
+    background-color: #ffff71;
+    border: 2px solid black;
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: .1rem;
+    outline: none !important;
+    cursor: pointer;
+}
+
+/* FORM  */
+#colForm{
+    background-color: white;
+}
+#colForm{
+    position: fixed;
+    margin-top: 15vh;
+    width: 350px;
+    height: auto;
+    padding: 15px;
+    border: 2px solid black;
+    box-shadow: 
+        -10px -10px 0 -3px #F88F6F,
+        -10px -10px,
+        -20px -20px 0 -3px #ffff71,
+        -20px -20px; 
+}
+
+.search-input{
+    border: 2px solid black;
+    border-radius: 0;
+    font-size: 1.5rem;
+    margin: 1em 0;
+    background-color: #ffff71;
+}
+option{
+    font-size: x-large;
+    background-color: white;
+}
+.search-input:focus{
+    box-shadow: 1px 1px 1px 1px #F88F6F;
+    border: 1px solid #F88F6F;
+}
+/* NO CARDS */
+
+.notFound{
+    /* width: ; */
+    height: 35vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* opacity: 0.7; */
+    
+}
+
+.notFound>p{
+    /* opacity: 1; */
+    font-size: 1.5rem;
+    text-shadow: 0 0 1px #ffff71;
+}
+
+/* CARD ADVERTISEMENTS */
+.cardAdvertisement{
+    border: 2px solid black;
+    transition: box-shadow 0.3s;
+    background-color: white;
+}
+.solo:hover {
+    -webkit-box-shadow: 8px 8px 5px -3px rgba(0,0,0,0.8); 
+    box-shadow: 8px 8px 5px -3px rgba(0,0,0,0.8);
+}
+.group:hover {
+    -webkit-box-shadow: 8px 8px 5px -3px rgba(0,0,0,0.8); 
+    box-shadow: 8px 8px 5px -3px rgba(0,0,0,0.8);
+}
+.cardTop, .cardBody{
+    font-family: 'Bebas Neue', cursive;
+    padding: 5px;
+}
+.cardBody{
+    position: relative;
+}
+.soloCard {
+    text-shadow: 0px 0px 1px #ffff71;
+}
+.groupCard {
+    text-shadow: 0px 0px 1px #f88f6f;
+
+}
+.cardTop {
+    padding-top: 5px;
+    border-bottom: 1px solid black;
+}
+.cover{
+    height: 50px;
+}
+.titleAdv{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70vw;
+}
+.isAlone{
+    position: absolute;
+    font-size: small;
+    right: 10px;
+    bottom: -12px;
+}
+
+@media screen and (min-width: 1024px) {
+    .adv-content{
+        font-size: 1.5rem;
+    }
+    .titleAdv{
+        max-width: 400px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #leftSide{
+        height: 75vh;
+    }
+    .notFound>p{
+        font-size: 2rem;
+    }
+    .cover{
+        padding-right: 30px;
+    }
+    .submit-search{
+        background-color: #ffff71;
+        border: 2px solid #F88F6F;
+        border-radius: 0;
+        transition: all 0.3s ease;
+    }
+    .submit-search:after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 0;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: #F88F6F;
+        transition: all 0.3s ease; 
+    }
+    .autocomplete-items{
+        top: 6vh;
+    }
+
+    #rightSide{
+       padding-left: 110px;
+    }
+
+    .isAlone{
+        font-size: medium;
+    }
+
+    #btnAdvertisement, .submit-search{
+        font-size: 2rem;
+    }
+}

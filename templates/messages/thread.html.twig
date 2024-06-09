@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon message{% endblock %}
+
+{% block stylesheets %}
+  {{parent()}}
+  <link rel="stylesheet" type="text/css"  href="{{ asset('css/mailbox.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+{# {{render(controller(
+    'App\\Controller\\NavController::getUserNotifications'
+))}} #}
+
+<div class="container-fluid" id="container-mailbox">
+  
+  <section class="row">
+    {# BOITE DE RECEPTION #}
+    <div class="d-none d-md-block d-lg-block col-md-4 " >
+      <div class="col-md-12 d-flex justify-content-center align-items-center" id="linkMailbox">
+        <img src="{{ asset('images/mailbox.png') }}" class='pe-2'>
+        <h1  id="linkMailboxText"><a href="{{path('app_mailbox')}}">Boîte de réception</a></h1>
+      </div>
+    </div>
+    {# LE MESSAGE #}
+    <div class="col-12 col-md-8">
+      <div class="row" id="rowMessage">
+       <div class="row mt-5">
+          <div class="col-2 text-end">
+          {% if messageContent.sender.getAvatar() %}
+            <img class="cover" src="{{ asset( 'images_users/'~messageContent.sender.avatar~'' ) }}" alt="image de l'expéditeur">
+          {% else %} 
+            <img class='cover' src="{{ asset('images/logo4-wpm.png') }}" alt="image représentative de l'expéditeur">
+          {% endif %}
+          </div>
+          <div class="col-5">@{{messageContent.sender.pseudo}}</div>
+          <div class="col-5 text-end" id="dateMail">{{messageContent.createdAt|date('d-m-Y')}} à {{messageContent.createdAt|date("H:i:s")}}</div>
+        </div>
+        <div class="col-12 ps-5">📝 <span class="ps-2">{{messageContent.content|raw}}</span></div>
+      </div>
+
+      {# MESSAGERIE #}
+      <div class="row" id="row-messagerieAdvertisement">
+        <form method="post" class="" id="formMessagerie" name="answerMsg">
+            <div class="col d-flex justify-content-center" id="divMessagerie">
+              <textarea class="form-control" placeholder="Répondre à {{messageContent.sender.pseudo}}" id="textAreaMessagerie" name="messageContent"></textarea>
+            </div>
+            <div class="col d-flex justify-content-center" id="divBtnMessagerie">
+              <button type="submit" class="" id="btnMessagerie">Envoyer mon message</button>
+            </div>
+        </form>
+      </div>
+
+    </div> 
+  </section>   
+</div>
+
+{% endblock %}

@@ -1,0 +1,225 @@
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    margin: 0;
+}
+input, select, textarea{
+    border-radius: 0 !important;
+}
+#title-addAdv{
+    text-shadow: 2px 2px 2px #ffff71;
+}
+button{
+    color: black!important;
+}
+::placeholder {
+    color: black!important;
+    text-shadow: 2px 2px 2px #ffff71;
+    opacity: 1;
+}
+:-ms-input-placeholder { 
+color: black!important;
+text-shadow: 2px 2px 2px #ffff71;
+opacity: 1;
+}
+::-ms-input-placeholder { 
+    color: black!important;
+    text-shadow: 2px 2px 2px #ffff71;
+    opacity: 1;
+}
+.item{
+    font-size: 1.5rem;
+}
+#container-advertisementId{
+    padding-top: 10vh;
+    font-family: 'Amatic SC', cursive;
+    min-height: 100vh;
+}
+#row-advertisementId, #row-messagerieAdvertisement, #row-advertisementIdDelete{
+    width: 60%;
+    margin: auto;
+}
+#row-advertisementId{
+    user-select: none;
+    margin-top: 2vh;
+    padding: 30px;
+    overflow: hidden;
+}
+.cover{
+    height: 80px;
+}
+.labelAdvertisement{
+    background-color: #ffff71;
+    padding: 0 10px 0 10px;
+}
+
+#title, #description, h1{
+    text-decoration: underline;
+}
+/* MESSAGERIE */
+#row-messagerieAdvertisement{
+    padding-top: 30px;
+}
+#formMessagerie{
+    padding: 0;
+}
+#textAreaMessagerie{
+    width: 1000px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 0;
+    font-family: 'Bebas Neue', cursive!important;
+    font-size: x-large;
+}
+#textAreaMessagerie:focus{
+    -webkit-box-shadow: 0px 0px 4px 3px #F88F6F; 
+    box-shadow: 0px 0px 4px 3px #F88F6F;
+}
+    /* BUTTON */
+#divBtnMessagerie{
+    margin: 30px 0 50px 0;
+}
+#btnMessagerie, #advertisement_save{
+    width: 300px;
+    height: auto;
+    position: relative;
+    padding: 5px 5px; 
+    background-color: #F88F6F;
+    border: 3px solid black;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: xx-large;
+    letter-spacing: .1rem;
+    outline: none !important;
+    cursor: pointer;
+    z-index: 1;
+}
+#btnMessagerie:after, #advertisement_save:after{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #ffff71;
+    transition: all 0.3s ease; 
+}
+#btnMessagerie:hover:after, #advertisement_save:hover:after{
+    top: auto;
+    bottom: 0;
+    height: 100%; 
+}
+
+/****************** FORMULAIRE 1 *******************/
+#messageCount{ /* compteur textArea*/
+    height: 1px;
+}
+.advertisementForm{
+    padding-top: 15px!important;
+}
+#advertisement_description{
+    height: 150px!important;
+}
+.mb-3{
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+.form-control, .form-select{
+    font-size: x-large;   
+}
+.form-control:focus , .form-select:focus{
+    -webkit-box-shadow: 0px 0px 4px 3px #F88F6F!important; 
+    box-shadow: 0px 0px 4px 3px #F88F6F!important;
+    border: 0;
+}
+.autocomplete-items{
+   margin-top: 0.4rem;
+   width: calc(100% - 1.5rem);
+}
+/* Link Delete */
+#linkDelete{
+    color: #F88F6F!important;
+    display: inline-block;
+    position: relative;
+    margin-top: 20px;
+}
+#linkDelete::after {
+	position: absolute;
+	content: "";
+	width: 0%;
+	height: 2px;
+	background-color: black;
+	left: 50%;
+	bottom: 0px;
+	transition: all 0.4s ease-in-out;
+}
+#linkDelete:hover:after {
+	width: 100%;
+	left: 0;
+}
+#linkDelete:hover{
+    text-shadow: 1px 1px 1px rgb(255, 255, 113);
+    color: black!important;
+}
+
+@media screen and (min-width:768px) {
+    .label-form-addAdv>label{
+        font-size: larger;
+    }
+}
+
+@media screen and (min-width:1024px) {
+    label{
+        font-size: 1.5em;
+    }
+    /* #container-advertisementId{
+        height: 92vh;
+    } */
+}
+
+/***** RESPONSIVE *****/
+@media (min-width: 768px) { 
+    #divDescription{
+        height: 100px;
+    }
+}
+@media (min-width: 1200px) { 
+    #row-advertisementId{
+        border: 2px solid black;
+        box-shadow: 
+            -10px 10px 0 -3px #ffff71,
+            -10px 10px,
+            -20px 20px 0 -3px #F88F6F,
+            -20px 20px;
+        background-color: white;
+    }
+    #container-advertisementId{
+        background-color: #ffff718a;
+    }
+}
+@media (max-width: 1200px){
+    .cover{
+        height: 40px;
+    }
+    #container-advertisementId{
+        padding-left: 0;
+        padding-right: 0;
+        height: 85vh;
+    }
+    #row-advertisementId, #row-messagerieAdvertisement, #row-advertisementIdDelete{
+        width: 100vw;
+        margin: 0;    
+    }
+    #textAreaMessagerie{
+        width: 90vw;
+        height: 100px;
+        font-size: small;
+    }
+    #btnMessagerie, #advertisement_save,.form-control, .form-select{
+        font-size: medium;
+    }
+}
