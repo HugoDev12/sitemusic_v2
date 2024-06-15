@@ -114,4 +114,7 @@ class UserProfileController extends AbstractController
             'user' => $visitedUser
         ]);
     }
+
+
+    
 }

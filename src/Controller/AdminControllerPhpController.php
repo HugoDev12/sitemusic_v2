@@ -12,9 +12,20 @@ use App\Entity\Messages;
 
 class AdminControllerPhpController extends AbstractController
 {
+
+    #[Route('/unauthorised', name:'app_denied')]
+    public function noPermission(): Response
+    {
+        return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
+    }
+
     #[Route('/admin', name: 'app_admin')]
     public function adminDashboard(EntityManagerInterface $em): Response
     {
+
+        // if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+        //     return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
+        // }
    
         $listUsers = $em->getRepository(User::class)->findAll();
 
@@ -26,6 +37,11 @@ class AdminControllerPhpController extends AbstractController
     #[Route('/admin/advertisements', name: 'app_admin_advertisements')]
     public function adminAdvertisements(EntityManagerInterface $em): Response
     {
+
+        // if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+        //     return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
+        // }
+
         $listAdvertisements = $em->getRepository(Advertisement::class)->findAll();
 
         return $this->render('admin/adminAdvertisements.html.twig', [
@@ -37,6 +53,11 @@ class AdminControllerPhpController extends AbstractController
     #[Route('admin/advertisement-delete-{id}', name: 'app_admin_deleteAdv')]
     public function adminDeleteAdv(int $id, EntityManagerInterface $em)
     {
+
+        // if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+        //     return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
+        // }
+
         $advToDelete = $em->getRepository(Advertisement::class)->find($id);
 
         $em->remove($advToDelete);
@@ -51,6 +72,11 @@ class AdminControllerPhpController extends AbstractController
     #[Route('/admin/messages', name: 'app_admin_messages')]
     public function adminMessages(EntityManagerInterface $em): Response
     {
+
+        // if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+        //     return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
+        // }
+
         $listMessages = $em->getRepository(Messages::class)->findAll();
 
         return $this->render('admin/adminMessages.html.twig', [
@@ -61,6 +87,11 @@ class AdminControllerPhpController extends AbstractController
     #[Route('/admin/message-delete-{id}', name: 'app_admin_deleteMessage')]
     public function adminEditMessage(int $id, EntityManagerInterface $em): Response
     {
+
+        // if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+        //     return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
+        // }
+
         $targetMessage = $em->getRepository(Messages::class)->find($id);
         $em->remove($targetMessage);
         $em->flush();
@@ -73,6 +104,7 @@ class AdminControllerPhpController extends AbstractController
     #[Route('/user/profile/delete/{id}', name: 'app_user_delete_profile')]
     public function deleteUser(int $id, EntityManagerInterface $em): Response
     {
+
 
         if($this->getUser()->getId() !== $id && !in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
             return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
