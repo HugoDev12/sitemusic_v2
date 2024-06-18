@@ -14,6 +14,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Security\AdvFormSecurity;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Security\AccessDeniedHandler;
 
 class UserProfileController extends AbstractController
 {
@@ -25,12 +26,15 @@ class UserProfileController extends AbstractController
         
     // }
     #[Route('/user/profile/{id}', name: 'app_user_profile')]
-    public function editProfile(int $id, Request $request, EntityManagerInterface $em, SluggerInterface $slugger,AdvFormSecurity $isSecured, UserPasswordHasherInterface $passwordHasher ): Response
+    public function editProfile(
+        int $id,
+        Request $request, 
+        EntityManagerInterface $em, 
+        SluggerInterface $slugger,
+        AdvFormSecurity $isSecured, 
+        UserPasswordHasherInterface $passwordHasher,
+        ): Response
     {
-
-        if($this->getUser()->getId() !== $id && !in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
-            return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
-        }
 
         $user = $em->getRepository(User::class)->find($id);
         $userAdvertisements = $em->getRepository(Advertisement::class)->findBy(["user" => $user]);

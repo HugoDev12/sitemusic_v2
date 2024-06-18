@@ -19,7 +19,7 @@ security:
 
         secured_area:
             form_login:
-                login_path: app_login
+                login_path: app_login   
                 check_path: app_login
                 default_target_path: app_home
                 enable_csrf: true
@@ -47,6 +47,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         # modifié ici
         - { path: /advertisement/form/add, roles: IS_AUTHENTICATED}
+        - { path: /user/profile/\d, allow_if: "is_granted('ROLE_USER') and request.getSession().get('_security.last_id') == request.attributes.get('id')"  } #Ok 
         - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:

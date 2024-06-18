@@ -48,6 +48,14 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        // Eventuellement mettre en session l'id de l'utilisateur connecté (ajout d'une public constante LAST_ID dans SecurityRequestAttributes)
+        $id = $token->getUser()->getId();
+        $request->getSession()->set(SecurityRequestAttributes::LAST_ID, $id);
+
+
+
+
+
         // For example:
         return new RedirectResponse($this->urlGenerator->generate('app_user_profile' , ["id"=>$token->getUser()->getId()]));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);

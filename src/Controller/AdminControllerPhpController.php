@@ -13,11 +13,11 @@ use App\Entity\Messages;
 class AdminControllerPhpController extends AbstractController
 {
 
-    #[Route('/unauthorised', name:'app_denied')]
-    public function noPermission(): Response
-    {
-        return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
-    }
+    // #[Route('/unauthorised', name:'app_denied')]
+    // public function noPermission(): Response
+    // {
+    //     return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
+    // }
 
     #[Route('/admin', name: 'app_admin')]
     public function adminDashboard(EntityManagerInterface $em): Response
